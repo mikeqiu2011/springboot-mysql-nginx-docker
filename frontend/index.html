@@ -4,14 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Nginx HTML application</title>
 </head>
 <body>
     <h1>super cool nginx html application version 2</h1>
-    <form action="http://127.0.0.1:30002/demo/add" method="post">
-        <input type="text" name="name" id="" value="kevin">
-        <input type="text" name="email" id="" value="kevin@163.com">
-        <input type="submit" value="add">
-    </form>
+
+    <br>
+    <h2>add new record</h2>
+    <input type="text" name="name" id="name" value="kevin">
+    <input type="text" name="email" id="email" value="kevin@163.com">
+    <button onclick="addRecord()">add</button>
+
+    <br>
+    <h2>all records from server</h2>
+    <div id="divRecord"></div>
+
+    <br>
+    <h2>server hostname and version</h2>
+    <div id="divServerHost"></div>
+    <button onclick="showHost()">show</button>
+
 </body>
+
+<script>
+    
+    function addRecord(){
+        const url = "http://localhost:30002/add"
+        const form = new FormData()
+        form.append("name", document.getElementById("name").value)
+        form.append("email", document.getElementById("email").value)
+
+        fetch(url, {
+            body: form,
+            method: "POST"
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data)
+                document.getElementById("divRecord").innerHTML = data
+            })
+    }
+
+    function showHost(){
+        const url = "http://localhost:30002/host"
+        fetch(url)
+            .then(res => res.text())
+            .then(data => {
+                console.log(data)
+                document.getElementById("divServerHost").innerHTML = data
+            })
+    }
+
+
+</script>
+
 </html>
