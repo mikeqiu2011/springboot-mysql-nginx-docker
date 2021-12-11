@@ -7,7 +7,7 @@ docker-compose build
 docker-compose up
 
 ## test
-localhost:9000
+localhost:30001
 
 ## ref
 https://www.bezkoder.com/docker-compose-spring-boot-mysql/
